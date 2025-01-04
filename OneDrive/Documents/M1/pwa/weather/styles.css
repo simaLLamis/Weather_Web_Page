@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #4a90e2; /* A calming blue */
+
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+        .app {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .weather-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .current-weather h2 {
+            font-size: 2em;
+            margin: 0;
+        }
+        .current-weather p {
+            margin: 5px 0;
+        }
+        .current-weather h1 {
+            font-size: 3em;
+            margin: 10px 0;
+        }
+        .weather-icon img {
+            width: 100px;
+            height: 100px;
+        }
+        .details-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .details {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .details h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .city-search {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        #search-input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            width: 70%;
+        }
+        #search-button {
+            padding: 10px;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            background: #ff6347;
+            color: white;
+            cursor: pointer;
+        }
+        #search-button:hover {
+            background: #ff4500;
+        }
