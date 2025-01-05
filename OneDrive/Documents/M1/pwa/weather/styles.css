@@ -1,73 +1,154 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: #4a90e2; /* A calming blue */
-
     color: #fff;
     margin: 0;
     padding: 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+
 }
         .app {
             max-width: 600px;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
         }
-        .weather-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .current-weather h2 {
-            font-size: 2em;
-            margin: 0;
-        }
-        .current-weather p {
-            margin: 5px 0;
-        }
-        .current-weather h1 {
-            font-size: 3em;
-            margin: 10px 0;
-        }
-        .weather-icon img {
-            width: 100px;
-            height: 100px;
-        }
-        .details-container {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-        .details {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 10px;
-            flex: 1;
-            margin: 0 5px;
-        }
-        .details h3 {
-            margin: 0;
-            font-size: 1.2em;
-        }
-        .city-search {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        #search-input {
-            padding: 10px;
-            border: none;
-            border-radius: 5px 0 0 5px;
-            width: 70%;
-        }
-        #search-button {
-            padding: 10px;
-            border: none;
-            border-radius: 0 5px 5px 0;
-            background: #ff6347;
-            color: white;
-            cursor: pointer;
-        }
-        #search-button:hover {
-            background: #ff4500;
-        }
+        
+/* Container météo */
+.weather-container {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+/* Styles des titres */
+.current-weather h2 {
+    font-size: clamp(1.5em, 5vw, 2em);
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.current-weather p {
+    margin: 5px 0;
+    font-size: clamp(0.9em, 3vw, 1em);
+}
+
+.current-weather h1 {
+    font-size: clamp(2em, 8vw, 3em);
+    margin: 10px 0;
+}
+
+/* Icon météo */
+.weather-icon img {
+    width: clamp(60px, 15vw, 100px);
+    height: clamp(60px, 15vw, 100px);
+    object-fit: contain;
+}
+
+/* Container des détails - Maintenant vertical */
+.details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Cartes de détails */
+.details {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+}
+
+.details:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.details h3 {
+    margin: 0;
+    font-size: clamp(1em, 3vw, 1.2em);
+}
+
+/* Barre de recherche */
+.city-search {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+
+#search-input {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: clamp(14px, 3vw, 16px);
+    box-sizing: border-box;
+}
+
+#search-button {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background: #ff6347;
+    color: white;
+    cursor: pointer;
+    font-size: clamp(14px, 3vw, 16px);
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+#search-button:hover {
+    background: #ff4500;
+}
+
+/* Media Queries */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .app {
+        padding: 15px;
+    }
+
+    .details {
+        padding: 15px;
+    }
+}
+
+/* Ajouts pour l'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+    .details {
+        transition: none;
+    }
+    
+    #search-button {
+        transition: none;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .app {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .details {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .details:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}
