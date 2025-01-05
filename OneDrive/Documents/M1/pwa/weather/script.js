@@ -39,6 +39,39 @@ function updateDate() {
     document.getElementById('current-date').textContent = dateString;  // Met à jour l'affichage
 }
 
+// Nouvelle fonction pour mettre à jour l'interface utilisateur
+function updateWeatherUI(data) {
+    cityName.textContent = `${data.name}, ${data.sys.country}`;
+    temperature.textContent = `${Math.round(data.main.temp)}°`;
+    condition.textContent = data.weather[0].description;
+
+    const iconCode = data.weather[0].icon;
+    weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+    precipitation.textContent = `${data.clouds.all}%`;
+    windSpeed.textContent = `${data.wind.speed} km/h`;
+    humidity.textContent = `${data.main.humidity}%`;
+    pressure.textContent = `${data.main.pressure} hPa`;
+}
+
+// Nouvelle fonction pour récupérer la météo par coordonnées
+async function fetchWeatherByCoords(lat, lon) {
+    try {
+        const response = await fetch(`${apiUrl}lat=${lat}&lon=${lon}&appid=${apiKey}`);
+        const data = await response.json();
+
+        if (data.cod !== 200) {
+            alert('Erreur lors de la récupération des données météo');
+            return;
+        }
+
+        updateWeatherUI(data);
+    } catch (error) {
+        console.error('Erreur lors de la récupération des données météo:', error);
+        alert('Erreur lors de la récupération des données météo');
+    }
+}
+
 // Fonction de récupération des données météo
 async function fetchWeather(city) {
     try {
@@ -50,24 +83,50 @@ async function fetchWeather(city) {
             alert('Ville non trouvée');
             return;
         }
-
-        // Met à jour tous les éléments de l'interface avec les données reçues
-        cityName.textContent = `${data.name}, ${data.sys.country}`;  // Nom de la ville et pays
-        temperature.textContent = `${Math.round(data.main.temp)}°`;   // Température arrondie
-        condition.textContent = data.weather[0].description;          // Description météo
-
-        // Met à jour l'icône météo
-        const iconCode = data.weather[0].icon;
-        weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-        // Met à jour les détails météo
-        precipitation.textContent = `${data.clouds.all}%`;          // Couverture nuageuse
-        windSpeed.textContent = `${data.wind.speed} km/h`;         // Vitesse du vent
-        humidity.textContent = `${data.main.humidity}%`;           // Humidité
-        pressure.textContent = `${data.main.pressure} hPa`;        // Pression
-
+        updateWeatherUI(data);
     } catch (error) {
         console.error('Erreur lors de la récupération des données météo:', error);
+    }}
+    // Nouvelle fonction pour obtenir la localisation de l'utilisateur
+function getUserLocation() {
+    if (navigator.geolocation) {
+        cityName.textContent = 'Récupération de votre position...';
+        
+        navigator.geolocation.getCurrentPosition(
+            // Succès
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                fetchWeatherByCoords(latitude, longitude);
+            },
+            // Erreur
+            (error) => {
+                console.error('Erreur de géolocalisation:', error);
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert('Veuillez autoriser l\'accès à votre position pour obtenir la météo locale');
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert('Information de position non disponible');
+                        break;
+                    case error.TIMEOUT:
+                        alert('Délai d\'attente de la requête de position dépassé');
+                        break;
+                    default:
+                        alert('Erreur lors de la récupération de la position');
+                }
+                // Repli sur la ville par défaut
+                fetchWeather('Algeria');
+            },
+            // Options
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            }
+        );
+    } else {
+        alert('La géolocalisation n\'est pas supportée par votre navigateur');
+        fetchWeather('Algeria');
     }
 }
 
@@ -80,9 +139,20 @@ searchButton.addEventListener('click', () => {
         alert('Veuillez entrer un nom de ville');  // Sinon affiche une alerte
     }
 });
-
+// Écouteur d'événement pour la touche Entrée dans le champ de recherche
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        const city = searchInput.value.trim();
+        if (city) {
+            fetchWeather(city);
+        } else {
+            alert('Veuillez entrer un nom de ville');
+        }
+    }
+});
 // Initialisation
 updateDate();  // Met à jour la date initiale
 updateTime();  // Met à jour l'heure initiale
 setInterval(updateTime, 60000);  // Met à jour l'heure toutes les minutes (60000ms = 1 minute)
-fetchWeather('Algeria');  // Charge les données météo initiales pour l'Algérie
+// Utilise la géolocalisation au chargement de la page
+getUserLocation();
