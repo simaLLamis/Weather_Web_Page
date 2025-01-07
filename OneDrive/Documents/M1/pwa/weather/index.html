@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
-    <link rel="stylesheet" href="styles.css"></head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="app">
-        <div class="weather-container">
-            <div class="current-weather">
-                <h2 id="city-name"></h2>
-                <p id="current-date"></p> <!-- Display current date -->
-                <p id="current-time"></p> <!-- Display current time -->
-                <div class="weather-icon">
-                    <img id="weather-icon" alt="Weather Icon">
-                </div>
-                <h1 id="temperature">13°</h1>
-                <p id="condition"></p>
-            </div>
-            
-            <div class="details-container">
-                <div class="details">
-                    <h3>Precipitation</h3>
-                    <p id="precipitation"></p>
-                </div>
-                <div class="details">
-                    <h3>Wind</h3>
-                    <p id="wind-speed"></p>
-                </div>
-                <div class="details">
-                    <h3>Humidity</h3>
-                    <p id="humidity"></p>
-                </div>
-                <div class="details">
-                    <h3>Pressure</h3>
-                    <p id="pressure"></p>
-                </div>
-            </div>
+      <div class="weather-container">
+        <div class="current-weather">
+          <h2 id="city-name"></h2>
+          <p id="current-date"></p>
+          <!-- Display current date -->
+          <p id="current-time"></p>
+          <!-- Display current time -->
+          <div class="weather-icon">
+            <img id="weather-icon" alt="Weather Icon" />
+          </div>
+          <h1 id="temperature">13°</h1>
+          <p id="condition"></p>
         </div>
-        
-        <div class="city-search">
-            <input type="text" id="search-input" placeholder="Search for city...">
-            <button id="search-button">Search</button>
+
+        <div class="details-container">
+          <div class="details">
+            <h3>Precipitation</h3>
+            <p id="precipitation"></p>
+          </div>
+          <div class="details">
+            <h3>Wind</h3>
+            <p id="wind-speed"></p>
+          </div>
+          <div class="details">
+            <h3>Humidity</h3>
+            <p id="humidity"></p>
+          </div>
+          <div class="details">
+            <h3>Pressure</h3>
+            <p id="pressure"></p>
+          </div>
         </div>
+      </div>
+
+      <div class="city-search">
+        <input type="text" id="search-input" placeholder="Search for city..." />
+        <button id="search-button">Search</button>
+        <button id="search-current-button">Current city weather</button>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
